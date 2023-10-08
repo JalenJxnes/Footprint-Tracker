@@ -4,7 +4,7 @@ import '../app/global.css';
 
 export default function Home() {
   return (
-    <div className='container min-h-screen h-[100vh]'>
+    <div className='container w-full'>
       <Example />
       <Calculator />
     </div>
