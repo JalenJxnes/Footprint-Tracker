@@ -2,7 +2,7 @@ import '../app/global.css';
 
 export default function Example() {
     return (
-        <div className="container">
+        <div className="container min-w-full">
             <h1 className="title">
                 Example
             </h1>

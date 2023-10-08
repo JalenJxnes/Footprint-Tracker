@@ -1,7 +1,7 @@
 'use client';
 import '../app/global.css';
 import { Button } from"@/components/ui/button";
-import Example from './example';
+import Calc from './calc';
 import {useState} from "react";
 
 
@@ -15,7 +15,7 @@ export default function Calculator() {
             <Button className='w-1/2 my-12' onClick={() => setCurrentPage(!showPage)}>Try It</Button>
             {showPage && (
                 <div className='container'>
-                    <Example />
+                    <Calc />
                 </div>
             )}
         </div>

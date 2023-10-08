@@ -8,9 +8,15 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    colors: {
+      'dark-green': '#3D4C3F',
+      'slate-gray': '#78866B',
+      'blue-slate': '#70A39D',
+      'khaki': '#C3B091',
+      'beige': '#E1D7C6',
+    },
     container: {
       center: true,
-      padding: "2rem",
       screens: {
         "2xl": "1400px",
       },
