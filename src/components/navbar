@@ -1,0 +1,36 @@
+import '../carbon footprint calculator.css';
+
+export default function navbar() {
+    return(
+        <div className="container">
+    
+        <nav class="navbar fixed-top navbar-expand-sm navbar-light">
+            <a class="navbar-brand"></a>
+    
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavMenu" aria-controls="myNavMenu" aria-expanded="false" aria-label="Toggle Navigation On.">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="myNavMenu">
+                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="carbon footprint calculator.html">Home</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="a">Calculator</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="a">Tips</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="a">About</a>
+                    </li>
+                 </ul>
+            </div>
+        </nav>
+
+        </div> <!-- end of navbar-->
+
