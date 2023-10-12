@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/* CSS Document for Carbon footprint calculator */
+/* Ensure this css is ported to TailWind CSS */
+
+.navbar {
+    background-color: #c3b091;
+    font-family: sans-serif;
+background-color: #e1d7c6;
+}
+
+.card-inner {
+    background-color: #78866b;
+}
+
