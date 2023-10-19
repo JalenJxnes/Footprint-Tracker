@@ -1,6 +1,8 @@
 import {NextResponse} from "next/server";
+import { NextApiRequest, NextApiResponse } from 'next';
+import OpenAI from 'openai';
 
-export async function POST(request: Request) {
+export async function POST(request: Request, res: NextApiResponse, req: NextApiRequest) {
     const body = await request.json();
     const {
         noOfPeople,
@@ -69,9 +71,23 @@ export async function POST(request: Request) {
 
     console.log(roundedTotalAvgLbsCO2PerDay, roundedYearlyCO2)
 
+    //API added here
+    const prompt = `The user's estimated yearly carbon footprint is ${yearlyCO2} kg a year. Provide 5 specific, actionable suggestions the user can take to reduce their carbon footprint.`;
+
+    const openai = new OpenAI({
+        apiKey: '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'
+    });
+
+    const chatCompletion = await openai.chat.completions.create({
+        messages: [{ role: "user", content: `${prompt}`}],
+        model: "gpt-3.5-turbo",
+    })
+
+    const aiSuggestions = chatCompletion.choices[0].message.content;
+
     return NextResponse.json({
         dailyCO2: roundedTotalAvgLbsCO2PerDay,
         yearlyCO2: roundedYearlyCO2,
-        recommendations: "PLACEHOLDER"
+        recommendations: aiSuggestions,
     }, {status: 200});
 }

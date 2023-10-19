@@ -199,9 +199,9 @@ export default function Page() {
                     </form>
                 </Form>
                 {emission ?
-                    <Card className="border-solid flex border-2 m-2 rounded-lg p-4">
-                        <p>Daily emittions: {emission.dailyCO2}</p>
-                        <p>Yearly emittions: {emission.yearlyCO2}</p>
+                    <Card className="border-solid flex border-2 m-2 rounded-lg p-4 max-w-[100vw]">
+                        <p>Daily emissions: {emission.dailyCO2}</p>
+                        <p>Yearly emissions: {emission.yearlyCO2}</p>
                         <p>Recommendations: {emission.recommendations}</p>
                     </Card> : ""
                 }
