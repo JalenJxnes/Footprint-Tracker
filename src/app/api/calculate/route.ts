@@ -88,6 +88,6 @@ export async function POST(request: Request, res: NextApiResponse, req: NextApiR
     return NextResponse.json({
         dailyCO2: roundedTotalAvgLbsCO2PerDay,
         yearlyCO2: roundedYearlyCO2,
-        recommendations: aiSuggestions,
+        recommendations: aiSuggestions
     }, {status: 200});
 }

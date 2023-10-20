@@ -54,19 +54,20 @@ export default function Page() {
 
     return (
         <div className="min-h-screen flex justify-center items-center">
-            <Card className="border-solid border-2">
+            <Card className="border-solid border-2  rounded-lg shadow-md">
                 <CardHeader className="flex items-center justify-between">
                     <CardTitle>Footprint Calculator</CardTitle>
                 </CardHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="p-8 rounded-lg shadow-md space-y-6 w-96">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2">
+                        <div className="w-[340px] p-8 rounded-lg shadow-md space-y-6">
                         <FormField
                             control={form.control}
                             name="noOfPeople"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Number of People in Home</FormLabel>
-                                    <FormControl>
+                                <FormItem className='flex flex-row justify-between'>
+                                    <FormLabel className='mt-5'>Number of People in Home</FormLabel>
+                                    <FormControl className='w-20'>
                                         <Input type="number" {...field}
                                                onChange={(e) => field.onChange(Number(e.target.value))}
                                         />
@@ -75,14 +76,13 @@ export default function Page() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="vehiclesCount"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Number of Vehicles</FormLabel>
-                                    <FormControl>
+                                <FormItem className='flex flex-row justify-between'>
+                                    <FormLabel className='mt-5'>Number of Vehicles</FormLabel>
+                                    <FormControl className='w-20'>
                                         <Input type="number" {...field}
                                                onChange={(e) => field.onChange(Number(e.target.value))}
                                         />
@@ -92,14 +92,13 @@ export default function Page() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="milesDriven"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Miles Driven Yearly</FormLabel>
-                                    <FormControl>
+                                <FormItem className='flex flex-row justify-between'>
+                                    <FormLabel className='mt-5'>Miles Driven Yearly</FormLabel>
+                                    <FormControl className='w-20'>
                                         <Input type="number" {...field}
                                                onChange={(e) => field.onChange(Number(e.target.value))}
                                         />
@@ -109,67 +108,38 @@ export default function Page() {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="milesPerGallon"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Average Miles Per Gallon</FormLabel>
-                                    <FormControl>
+                                <FormItem className='flex flex-row justify-between'>
+                                    <FormLabel className='mt-5'>Average Miles Per Gallon</FormLabel>
+                                    <FormControl className='w-20'>
                                         <Input type="number" {...field}
                                                onChange={(e) => field.onChange(Number(e.target.value))}
                                         />
                                     </FormControl>
                                     <FormMessage/>
-
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="homeSize"
                             render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Home Size (in square feet)</FormLabel>
-                                    <FormControl>
+                                <FormItem className='flex flex-row justify-between'>
+                                    <FormLabel className='mt-5'>Home Size (in square feet)</FormLabel>
+                                    <FormControl className='w-20'>
                                         <Input type="number" {...field}
                                                onChange={(e) => field.onChange(Number(e.target.value))}
                                         />
                                     </FormControl>
                                     <FormMessage/>
-
                                 </FormItem>
                             )}
                         />
-
-                        <FormField
-                            control={form.control}
-                            name="heatingFuel"
-                            render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Primary Heating Fuel</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a primary heating fuel"/>
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            <SelectItem value="Electricity">Electricity</SelectItem>
-                                            <SelectItem value="Natural Gas">Natural Gas</SelectItem>
-                                            <SelectItem value="Heating Oil">Heating Oil</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage/>
-
-                                </FormItem>
-                            )}
-                        />
-
-
-                        {/* Add waste recycling options */}
+                        </div>
+                        <div className="p-8 rounded-lg shadow-md flex flex-col justify-between">
                         {['aluminumSteel', 'plastic', 'glass', 'newspaper', 'magazines'].map((item) => (
                             <FormField
                                 key={item}
@@ -189,23 +159,47 @@ export default function Page() {
                                 )}
                             />
                         ))}
+                            <FormField
+                                control={form.control}
+                                name="heatingFuel"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>Primary Heating Fuel</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select a primary heating fuel"/>
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="Electricity">Electricity</SelectItem>
+                                                <SelectItem value="Natural Gas">Natural Gas</SelectItem>
+                                                <SelectItem value="Heating Oil">Heating Oil</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage/>
 
-                        <FormItem>
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <div></div>
+                        <FormItem className="flex justify-end mb-4 mr-8">
                             <FormControl>
                                 <Button type="submit">Submit</Button>
                             </FormControl>
                         </FormItem>
-
                     </form>
                 </Form>
                 {emission ?
-                    <Card className="border-solid flex border-2 m-2 rounded-lg p-4 max-w-[100vw]">
-                        <p>Daily emissions: {emission.dailyCO2}</p>
-                        <p>Yearly emissions: {emission.yearlyCO2}</p>
+                    <Card className="border-solid flex border-2 m-2 rounded-lg p-4 w-[680px]">
+                        <div className='flex flex-row justify-around items-center mb-4'>
+                        <b>Daily emissions: {emission.dailyCO2}</b>
+                        <b>Yearly emissions: {emission.yearlyCO2}</b>
+                        </div>
                         <p>Recommendations: {emission.recommendations}</p>
                     </Card> : ""
                 }
-
             </Card>
         </div>
     )
