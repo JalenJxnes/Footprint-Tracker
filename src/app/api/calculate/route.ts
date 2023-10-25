@@ -1,8 +1,7 @@
 import {NextResponse} from "next/server";
-import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 
-export async function POST(request: Request, res: NextApiResponse, req: NextApiRequest) {
+export async function POST(request: Request) {
     const body = await request.json();
     const {
         noOfPeople,
@@ -19,7 +18,6 @@ export async function POST(request: Request, res: NextApiResponse, req: NextApiR
     } = body;
     console.log(body)
 
-    // Vehicles Calculations
     const gallonsUsed = milesDriven / milesPerGallon;
     const totalLbsCO2ForVehicles = gallonsUsed * 19.6;
     const avgLbsCO2PerDayForVehicles = totalLbsCO2ForVehicles / 365;
@@ -71,7 +69,6 @@ export async function POST(request: Request, res: NextApiResponse, req: NextApiR
 
     console.log(roundedTotalAvgLbsCO2PerDay, roundedYearlyCO2)
 
-    //API added here
     const prompt = `The user's estimated yearly carbon footprint is ${yearlyCO2} kg a year. Provide 5 specific, actionable suggestions the user can take to reduce their carbon footprint.`;
 
     const openai = new OpenAI({
