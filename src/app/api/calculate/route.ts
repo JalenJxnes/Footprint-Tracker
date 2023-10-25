@@ -75,7 +75,7 @@ export async function POST(request: Request, res: NextApiResponse, req: NextApiR
     const prompt = `The user's estimated yearly carbon footprint is ${yearlyCO2} kg a year. Provide 5 specific, actionable suggestions the user can take to reduce their carbon footprint.`;
 
     const openai = new OpenAI({
-        apiKey: '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'
+        apiKey: process.env.apiKey
     });
 
     const chatCompletion = await openai.chat.completions.create({

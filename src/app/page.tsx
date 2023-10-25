@@ -194,8 +194,8 @@ export default function Page() {
                 {emission ?
                     <Card className="border-solid flex border-2 m-2 rounded-lg p-4 w-[680px]">
                         <div className='flex flex-row justify-around items-center mb-4'>
-                        <b>Daily emissions: {emission.dailyCO2}</b>
-                        <b>Yearly emissions: {emission.yearlyCO2}</b>
+                        <b>Daily emissions: {emission.dailyCO2} lbs of CO2</b>
+                        <b>Yearly emissions: {emission.yearlyCO2} lbs of CO2</b>
                         </div>
                         <p>Recommendations: {emission.recommendations}</p>
                     </Card> : ""
