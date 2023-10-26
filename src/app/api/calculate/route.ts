@@ -5,6 +5,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
         noOfPeople,
+        vehiclesCount,
         milesDriven,
         milesPerGallon,
         homeSize,
@@ -69,7 +70,7 @@ export async function POST(request: Request) {
 
     console.log(roundedTotalAvgLbsCO2PerDay, roundedYearlyCO2)
 
-    const prompt = `The user's estimated yearly carbon footprint is ${yearlyCO2} kg a year. Provide 5 specific, actionable suggestions the user can take to reduce their carbon footprint.`;
+    const prompt = `My estimated yearly carbon footprint is ${yearlyCO2} pounds a year. There are ${noOfPeople} in my home. There are ${vehiclesCount} vehicles in the home, driven ${milesDriven} miles a year, with an average miles per gallon of ${milesPerGallon}. The home size is ${homeSize} square feet with a primary heating source of ${heatingFuel}. I entered ${aluminumSteel} for recycling aluminum and steel, ${plastic} for plastic, ${glass} for glass and ${newspaper} for newspapers. Provide 5 specific, actionable suggestions I can take to reduce my carbon footprint.`;
 
     const openai = new OpenAI({
         apiKey: process.env.apiKey
@@ -80,11 +81,11 @@ export async function POST(request: Request) {
         model: "gpt-3.5-turbo",
     })
 
-    const aiSuggestions = chatCompletion.choices[0].message.content;
+    let aiSuggestions = chatCompletion.choices[0].message.content;
 
     return NextResponse.json({
         dailyCO2: roundedTotalAvgLbsCO2PerDay,
         yearlyCO2: roundedYearlyCO2,
-        recommendations: aiSuggestions
+        recommendations: aiSuggestions,
     }, {status: 200});
 }
