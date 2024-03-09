@@ -58,6 +58,67 @@ export default function Calculator() {
 
 
     return (
+'use client'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import '../app/global.css';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useForm } from "react-hook-form";
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Card } from '@radix-ui/themes';
+import { useState } from 'react';
+import { CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
+const formValidationSchema = z.object({
+    noOfPeople: z.number().min(1, { message: "Number should be at least 1" }),
+    vehiclesCount: z.number().min(0, { message: "Number should be at least 0" }),
+    milesDriven: z.number().min(0, { message: "Number should be at least 0" }),
+    milesPerGallon: z.number().min(1, { message: "Number should be at least 1" }),
+    homeSize: z.number().min(1, { message: "Number should be at least 1" }),
+    heatingFuel: z.string().min(1, { message: "Please select a heating fuel" }),
+    aluminumSteel: z.boolean().default(false),
+    plastic: z.boolean().default(false),
+    glass: z.boolean().default(false),
+    newspaper: z.boolean().default(false),
+    magazines: z.boolean().default(false),
+});
+
+export default function Calculator() {
+    const [emission, setEmission] = useState<any>(null);
+
+    const form = useForm({
+        resolver: zodResolver(formValidationSchema),
+    });
+
+    const [error, setError] = useState(false)
+
+    const onSubmit = (data: any) => { 
+        fetch('https://github.com/JalenJxnes/Footprint-Tracker/blob/38148c2e29a23e99a23492c560f42b8159bd5ec1/src/app/api/calculate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': './application/json',
+            },
+            body: JSON.stringify(data),
+        }).then((response) => {
+            return response.json();
+        }
+        ).then((data) => {
+            setEmission(data);
+        }).catch((error) => {
+            setError(true);
+            console.error('Error:', error);
+
+        });
+    }
+
+
+    return (
+        <div>
+            <Card>
         <div>
             <Card className="border-solid border-2  rounded-lg shadow-md">
                 <CardHeader className="flex items-center justify-between">
@@ -182,8 +243,7 @@ export default function Calculator() {
                                                 <SelectItem value="Heating Oil">Heating Oil</SelectItem>
                                             </SelectContent>
                                         </Select>
-                                        <FormMessage/>
-
+                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -238,13 +298,17 @@ export default function Calculator() {
                             </Table>
                         </div>
                         <p>{emission.recommendations}</p>
-                    </Card> 
-                    : 
+                    </Card>
+                    : ""
+                }
+
+                {error && !emission ?
                     <Card>
                         <div className='flex flex-row justify-around items-center mb-4'>
-                            <p>{recommendations}</p>
+                            <p>Error fetching data...</p>
                         </div>
                     </Card>
+                    : ""
                 }
             </Card>
         </div>

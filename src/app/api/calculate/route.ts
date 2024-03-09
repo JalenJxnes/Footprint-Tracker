@@ -1,4 +1,4 @@
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 import OpenAI from 'openai';
 
 export async function POST(request: Request) {
@@ -90,5 +90,5 @@ export async function POST(request: Request) {
         totalLbsCO2ForVehicles: Number(totalLbsCO2ForVehicles.toFixed(1)),
         avgLbsCO2PerDayForVehicles: Number(avgLbsCO2PerDayForVehicles.toFixed(1)),
         avgLbsCO2PerKWhDayForHome: Number(avgLbsCO2PerKWhDayForHome.toFixed(1)),
-    }, {status: 200});
+    }, { status: 200 });
 }
