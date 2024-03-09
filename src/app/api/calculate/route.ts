@@ -70,10 +70,10 @@ export async function POST(request: Request) {
 
     console.log(roundedTotalAvgLbsCO2PerDay, roundedYearlyCO2)
 
-    const prompt = `My estimated yearly carbon footprint is ${yearlyCO2} pounds a year. There are ${noOfPeople} in my home. There are ${vehiclesCount} vehicles in the home, driven ${milesDriven} miles a year, with an average miles per gallon of ${milesPerGallon}. The home size is ${homeSize} square feet with a primary heating source of ${heatingFuel}. I entered ${aluminumSteel} for recycling aluminum and steel, ${plastic} for plastic, ${glass} for glass and ${newspaper} for newspapers. Provide 5 specific, actionable suggestions I can take to reduce my carbon footprint.`;
+    const prompt = `My yearly carbon footprint is ${yearlyCO2} pounds. In my home with ${noOfPeople} people, we have ${vehiclesCount} vehicles driven ${milesDriven} miles/year, averaging ${milesPerGallon} MPG. The home is ${homeSize} sq ft with ${heatingFuel} heating. I recycle ${aluminumSteel} for aluminum and steel, ${plastic} for plastic, ${glass} for glass, and ${newspaper} for newspapers. Suggest 5 actionable steps to reduce my carbon footprint.`;
 
     const openai = new OpenAI({
-        apiKey: process.env.apiKey
+        apiKey: "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"
     });
 
     const chatCompletion = await openai.chat.completions.create({
@@ -84,8 +84,11 @@ export async function POST(request: Request) {
     let aiSuggestions = chatCompletion.choices[0].message.content;
 
     return NextResponse.json({
-        dailyCO2: roundedTotalAvgLbsCO2PerDay,
-        yearlyCO2: roundedYearlyCO2,
+        dailyCO2: Number(roundedTotalAvgLbsCO2PerDay.toFixed(1)),
+        yearlyCO2: Number(roundedYearlyCO2.toFixed(1)),
         recommendations: aiSuggestions,
+        totalLbsCO2ForVehicles: Number(totalLbsCO2ForVehicles.toFixed(1)),
+        avgLbsCO2PerDayForVehicles: Number(avgLbsCO2PerDayForVehicles.toFixed(1)),
+        avgLbsCO2PerKWhDayForHome: Number(avgLbsCO2PerKWhDayForHome.toFixed(1)),
     }, {status: 200});
 }
