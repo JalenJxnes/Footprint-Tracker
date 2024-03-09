@@ -3,6 +3,7 @@ import '../app/global.css';
 import {
     NavigationMenu,
     NavigationMenuContent,
+    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
